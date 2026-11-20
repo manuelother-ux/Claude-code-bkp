@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "deepseek": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@arikusi/deepseek-mcp-server@2.4.0"
+      ],
+      "env": {
+        "DEEPSEEK_API_KEY": "${DEEPSEEK_API_KEY:-set-me}",
+        "NODE_USE_ENV_PROXY": "1"
+      }
+    },
+    "doubao": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "volcengine-mcp@1.0.1"
+      ],
+      "env": {
+        "ARK_API_KEY": "${ARK_API_KEY:-set-me}",
+        "NODE_USE_ENV_PROXY": "1"
+      }
+    }
+  }
+}
