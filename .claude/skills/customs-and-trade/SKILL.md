@@ -1,0 +1,193 @@
+---
+name: customs-and-trade
+description: Use when classifying a product by HS code, calculating import duties or landed cost, screening for dual-use or sanctions, checking import/export restrictions, or estimating total cost to enter a market
+---
+
+# Customs & Trade Compliance
+
+Classify your product, calculate what it costs to import, and screen for trade restrictions.
+
+**DISCLAIMER** (mandatory on every response): "For informational purposes only. Not legal, customs, or trade compliance advice. Consult a licensed customs broker for binding determinations."
+
+## Why This Matters for Small Product Companies
+
+Customs compliance is not optional. Get it wrong and your shipment gets:
+- **Held at customs** (days to weeks of delay)
+- **Charged wrong duty** (overpay or underpay -- both bad)
+- **Seized** (if product is restricted/prohibited and you did not know)
+- **Fined** (misclassification penalties)
+
+## HS Code Classification
+
+The Harmonized System (HS) code determines EVERYTHING: duty rate, import restrictions, required certifications, statistical reporting.
+
+### HS Code Structure
+
+| Level | Digits | Example | Who Sets It |
+|-------|--------|---------|-------------|
+| Chapter | 2 | 33 = Essential oils & cosmetics | International (WCO) |
+| Heading | 4 | 3304 = Beauty/skin care preps | International (WCO) |
+| Subheading | 6 | 3304.99 = Other beauty preps | International (WCO) |
+| CN code | 8 | 3304.99.00 | EU (Combined Nomenclature) |
+| TARIC | 10 | 3304.99.00.00 | EU (tariff measures) |
+| HTS | 10 | 3304.99.50.00 | US (Harmonized Tariff Schedule) |
+
+**Rule**: HS6 (first 6 digits) is universal. Digits 7+ are country-specific. Never assume an 8 or 10 digit code from one country works in another.
+
+### Common HS Codes for Physical Products
+
+| Product Type | Typical HS Code | Notes |
+|-------------|----------------|-------|
+| Face cream/moisturizer | 3304.99 | Under beauty/skin care preparations |
+| Lip products | 3304.10 | Lip make-up preparations |
+| Shampoo | 3305.10 | Hair shampoos |
+| Soap (toilet) | 3401.11 | For toilet use |
+| Perfume | 3303.00 | Perfumes and toilet waters |
+| Food supplements | 2106.90 | Other food preparations (varies if capsule/tablet) |
+| Electronic devices | 8471-8543 | Varies widely by type |
+| Toys | 9503 | Other toys |
+| Clothing | 6109-6114 | By material and type |
+| Cleaning products | 3402 | Organic surface-active agents |
+
+### Using MCP for Classification
+
+### Confidence Rules
+
+| Score | Gap | Action |
+|-------|-----|--------|
+| >= 0.85, gap >= 0.15 | Clear winner | Proceed with this code |
+| >= 0.70, gap >= 0.15 | Likely correct | Use it, but get professional verification for high-value shipments |
+| < 0.70 OR gap < 0.15 | Ambiguous | Do NOT proceed. Present candidates, recommend Binding Tariff Information (BTI) ruling |
+
+## Duty Calculation
+
+### Key Duty Rates (Cosmetics Example)
+
+| Route | MFN Rate | FTA Rate | FTA |
+|-------|----------|----------|-----|
+| Korea -> EU | 6.5% | 0% | EU-Korea FTA |
+| China -> EU | 6.5% | 6.5% (no FTA) | -- |
+| US -> EU | 6.5% | 6.5% (no FTA currently) | -- |
+| Korea -> US | 0-5.4% | 0% | KORUS FTA |
+| EU -> US | 0-5.4% | 0-5.4% (varies) | -- |
+| China -> US | 0-5.4% + Section 301 | varies | -- |
+| EU -> UK | 0% | 0% | TCA |
+
+**Always check FTA eligibility first.** FTAs can reduce duty to 0% but require proof of origin (EUR.1, Form A, origin declaration on invoice).
+
+### Rules of Origin
+
+FTA preferential rates require proof that the product "originates" in the FTA country. Rules vary by FTA:
+- **Wholly obtained**: grown/extracted/manufactured entirely in one country
+- **Substantial transformation**: sufficient processing (changes HS heading, value-added threshold)
+- **Cumulation**: materials from FTA partners can count
+
+For cosmetics made in Korea with ingredients from multiple countries: check if final manufacturing in Korea meets the specific origin rule in the EU-Korea FTA.
+
+## Landed Cost Calculation
+
+### Formula
+
+```
+Landed Cost = FOB + Shipping + Insurance + Duty + Special Duties + VAT + Handling
+
+Where:
+  FOB = product value at factory gate
+  Duty = CIF value x duty_rate
+  CIF = FOB + Shipping + Insurance
+  Special Duties = anti-dumping + countervailing + safeguard (usually 0)
+  VAT = (CIF + Duty + Special Duties) x VAT_rate
+  Handling = customs broker fee + port charges + customs processing
+
+Per-unit landed cost = Total / number of units in shipment
+```
+
+### VAT Rates by Country
+
+| Country | Standard VAT | Reduced rate (check product category) |
+|---------|-------------|----------------------------------------|
+| France | 20% | 5.5% on food, 10% on some products |
+| Germany | 19% | 7% on food, books |
+| UK | 20% | 0% on children's clothing, 5% on some items |
+| Italy | 22% | 4-10% on food |
+| Spain | 21% | 4-10% on food |
+| US | 0% federal | State sales tax 0-10.25% (not customs, collected at point of sale) |
+| Canada | 5% GST | + provincial PST/HST varies |
+| Japan | 10% | 8% on food |
+| Korea | 10% | -- |
+
+## Dual-Use Screening
+
+For products with technical components (electronics, chemicals, software):
+
+**When to check**:
+- Electronics with encryption (virtually all modern electronics)
+- High-purity chemicals
+- Precision instruments
+- Products with military or surveillance applications
+
+**If flagged**: An export license is required. Do NOT ship without one. Penalties are severe (criminal in many jurisdictions).
+
+## Sanctions Screening
+
+Screen business partners (suppliers, distributors, customers) against sanctions lists:
+
+### Sanctions Authorities Covered
+
+| Code | Authority | List |
+|------|-----------|------|
+| UN_SC | United Nations | Consolidated List |
+| US_OFAC | US Treasury | SDN (Specially Designated Nationals) |
+| UK_FCDO | UK Foreign Office | UK Sanctions List |
+| AU_DFAT | Australia | Consolidated List |
+| CA_GAC | Canada | Consolidated Autonomous |
+| JP_MOF | Japan | Entity Lists |
+| CH_SECO | Switzerland | SECO (EU-aligned) |
+| KZ_MFA | Kazakhstan | National List |
+
+**Gap**: EU Consolidated List not directly covered; CH_SECO is an EU-aligned proxy.
+
+**Protocol**:
+- Screen BEFORE any transaction
+- Re-screen monthly (lists update multiple times per month)
+- Document all screening (date, result, lists checked)
+- Any match = stop transaction, seek legal advice
+
+## Workflow for New Product Import
+
+```
+1. CLASSIFY
+   customs/reverse-classify -> candidate HS codes
+   Select best match (confidence >= 0.85)
+   If ambiguous: request BTI from customs authority
+
+2. CHECK RESTRICTIONS
+   customs/obligations -> import requirements per market
+   dual-use-check -> if technical product
+
+3. CALCULATE COST
+   customs/duties -> check MFN and FTA rates
+   customs/landed-cost -> full delivered cost breakdown
+   Compare per-unit cost across origin options
+
+4. SCREEN PARTNERS
+   sanctions/search -> for each business partner
+   Document results
+
+5. PREPARE DOCUMENTATION
+   Commercial invoice (with HS code, origin, value)
+   Packing list
+   Certificate of origin (if claiming FTA rate)
+   Product-specific certificates (CE, lab reports)
+   Customs declaration form
+```
+
+## Common Mistakes
+
+- **Using HS codes beyond 6 digits across countries**: HS6 is international. Digits 7+ are national. A US HTS code does not work for EU customs.
+- **Ignoring FTAs**: Can save 5-10% on landed cost. Always check if an FTA exists between origin and destination.
+- **Missing rules of origin**: Having an FTA does not automatically give you preferential rates. You must prove your product qualifies under the rules of origin.
+- **Undervaluing for customs**: Customs authorities audit. Declared value must match commercial reality. Undervaluation = fines + seizure.
+- **Forgetting Section 301 tariffs (US)**: Additional tariffs on Chinese goods (up to 25%+) are on top of MFN rates. Check before sourcing from China.
+- **One-time sanctions check**: Lists change constantly. Monthly re-screening is minimum best practice.
+- **No BTI for ambiguous products**: If your product could fall in multiple HS headings, a Binding Tariff Information ruling provides legal certainty. Worth the effort for high-volume imports.
